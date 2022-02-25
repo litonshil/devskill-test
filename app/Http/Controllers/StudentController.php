@@ -8,6 +8,7 @@ class StudentController extends Controller
 {
     public function index()
     {
+        // echo $x;
         return view('welcome');
     }
 }
