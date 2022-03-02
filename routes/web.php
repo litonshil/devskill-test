@@ -3,6 +3,7 @@
 use App\Http\Controllers\Admin\MeetingController;
 use App\Http\Controllers\Admin\StudentController as AdminStudentController;
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\PostController;
 use App\Http\Controllers\StudentController;
 use Illuminate\Support\Facades\Route;
 
@@ -18,7 +19,9 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/home', [StudentController::class, 'index']);
-Route::get('/signup', [AuthController::class, 'signup']);
-Route::get('/login', [AuthController::class, 'login']);
-Route::get('/student/create', [AdminStudentController::class, 'create']);
-Route::get('/meeting/{id}/edit', [MeetingController::class, 'edit']);
+
+Route::get('/post/create', [PostController::class, 'create']);
+Route::get('/post/display', [PostController::class, 'display']);
+
+Route::get('/post/update/{id}', [PostController::class, 'update']);
+Route::get('/post/delete/{id}', [PostController::class, 'update']);

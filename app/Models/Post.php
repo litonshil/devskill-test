@@ -8,6 +8,9 @@ use Illuminate\Database\Eloquent\Model;
 class Post extends Model
 {
     use HasFactory;
+    protected $fillable = [
+        'title', 'description', 'is_active'
+    ];
     public function comments()
     {
         return $this->hasMany(Comment::class); // one-many
