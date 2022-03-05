@@ -7,21 +7,37 @@ use Illuminate\Http\Request;
 
 class PostController extends Controller
 {
+    public function store()
+    {
+        $post = new Post();
+        $post->title = "New Post Title Entry";
+        $post->description = "New Post Description";
+        $post->is_active = true;
+        $post->save();
+        $post->tags()->attach([1, 2]); //save at pivot table posts_tag
+
+        //for delete with foreign key's table column
+        // $post = Post::find(9);
+        // $post->tags()->detach(); // opposite of attach()
+        // $post->delete();
+    }
     public function create()
     {
-        // $post = new Post();
-        // $post->title = "Demo Title";
-        // $post->description = "Demo Description";
-        // $post->is_active = true;
-        // $post->save();
+        $post = new Post();
+        $post->title = "Demo Title";
+        $post->description = "Demo Description";
+        $post->is_active = true;
+        $post->save();
+
+
 
         //Mass Assignment => must be filled up fillable array at Model
-        $data = [
-            "title" => "Demo Title",
-            "description" => "Demo Description",
-            "is_active" => true,
-        ];
-        Post::create($data);
+        // $data = [
+        //     "title" => "Demo Title",
+        //     "description" => "Demo Description",
+        //     "is_active" => true,
+        // ];
+        // Post::create($data);
     }
     public function update($id)
     {
@@ -69,9 +85,18 @@ class PostController extends Controller
         $posts = Post::get();
         foreach ($posts as $val) {
             echo $val->title;
-            echo "<br/>";
+            echo ",";
             echo $val->description;
-            echo "<br/>";
+            echo "<br> ==============================";
         }
+    }
+    public function show($post_id)
+    {
+        $post = Post::find($post_id);
+        if (!$post) {
+            return redirect('/home');
+        }
+        $data['post'] = $post;
+        return view('posts.show', $data);
     }
 }

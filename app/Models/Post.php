@@ -17,6 +17,7 @@ class Post extends Model
     }
     public function tags()
     {
-        return $this->belongsToMany(Tag::class); //many-many
+        // return $this->belongsToMany(Tag::class); //many-many  //added data without created_at and updated_at column
+        return $this->belongsToMany(Tag::class)->withTimestamps(); //many-many  //added data with timestamps
     }
 }
